@@ -1,0 +1,2348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANUBHAB LAHIRI // PORTFOLIO</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&family=Barlow:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #05050a;
+      --hud: #0a0a14;
+      --cyan: #00ffe5;
+      --yellow: #ffe600;
+      --red: #ff2d55;
+      --dim: rgba(0, 255, 229, 0.12);
+      --dimmer: rgba(0, 255, 229, 0.05);
+      --text: #c8d8d4;
+      --muted: #4a6060;
+      --border: rgba(0, 255, 229, 0.2);
+      --mono: 'Share Tech Mono', monospace;
+      --display: 'Bebas Neue', sans-serif;
+      --body: 'Barlow', sans-serif
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.06) 2px, rgba(0, 0, 0, 0.06) 4px);
+      pointer-events: none;
+      z-index: 9990
+    }
+
+    #cur {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px var(--cyan);
+      transition: width .15s, height .15s;
+      left: -100px;
+      top: -100px
+    }
+
+    #cur-ring {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(0, 255, 229, .5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      left: -100px;
+      top: -100px;
+      transition: width .2s, height .2s, border-color .2s
+    }
+
+    #cur-v {
+      position: fixed;
+      width: 1px;
+      height: 20px;
+      background: rgba(0, 255, 229, .4);
+      pointer-events: none;
+      z-index: 9997;
+      transform: translate(-50%, -50%);
+      left: -100px;
+      top: -100px
+    }
+
+    #cur-h {
+      position: fixed;
+      height: 1px;
+      width: 20px;
+      background: rgba(0, 255, 229, .4);
+      pointer-events: none;
+      z-index: 9997;
+      transform: translate(-50%, -50%);
+      left: -100px;
+      top: -100px
+    }
+
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none
+    }
+
+    .hc {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-color: var(--cyan);
+      border-style: solid;
+      opacity: .3;
+      z-index: 400;
+      pointer-events: none
+    }
+
+    .hc-tl {
+      top: 14px;
+      left: 14px;
+      border-width: 1px 0 0 1px
+    }
+
+    .hc-tr {
+      top: 14px;
+      right: 14px;
+      border-width: 1px 1px 0 0
+    }
+
+    .hc-bl {
+      bottom: 14px;
+      left: 14px;
+      border-width: 0 0 1px 1px
+    }
+
+    .hc-br {
+      bottom: 14px;
+      right: 14px;
+      border-width: 0 1px 1px 0
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      padding: 0 4vw;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(5, 5, 10, .92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--cyan);
+      letter-spacing: .15em;
+      text-decoration: none
+    }
+
+    .nav-logo span {
+      color: var(--muted)
+    }
+
+    .nav-links {
+      display: flex
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: .62rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: .1em;
+      padding: .4rem .9rem;
+      border-left: 1px solid var(--border);
+      transition: color .2s, background .2s;
+      text-transform: uppercase
+    }
+
+    .nav-links a:last-child {
+      border-right: 1px solid var(--border)
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+      background: var(--dimmer)
+    }
+
+    .nav-status {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: .5rem
+    }
+
+    .sdot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: blink 1.5s infinite
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .1
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 6vw 0;
+      position: relative;
+      z-index: 1;
+      gap: 4rem
+    }
+
+    .hero-left {
+      flex: 1;
+      min-width: 0
+    }
+
+    .hero-right {
+      width: 290px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      opacity: 0;
+      animation: fadeUp .6s 1.9s forwards
+    }
+
+    .h-eyebrow {
+      font-family: var(--mono);
+      font-size: .67rem;
+      color: var(--muted);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp .5s .3s forwards
+    }
+
+    .h-eyebrow::before {
+      content: '> ';
+      color: var(--cyan)
+    }
+
+    .h-name {
+      font-family: var(--display);
+      font-size: clamp(4.5rem, 11vw, 9rem);
+      line-height: .88;
+      letter-spacing: .02em;
+      color: #fff;
+      margin-bottom: 1.2rem
+    }
+
+    .h-name .l1 {
+      display: block;
+      position: relative;
+      opacity: 0;
+      animation: fadeUp .5s .45s forwards
+    }
+
+    .h-name .l2 {
+      display: block;
+      color: var(--cyan);
+      opacity: 0;
+      animation: fadeUp .5s .65s forwards
+    }
+
+    .glitch {
+      position: relative
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none
+    }
+
+    .glitch::before {
+      color: var(--red);
+      clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
+      animation: gl1 6s infinite
+    }
+
+    .glitch::after {
+      color: var(--cyan);
+      clip-path: polygon(0 68%, 100% 68%, 100% 100%, 0 100%);
+      animation: gl2 6s infinite
+    }
+
+    @keyframes gl1 {
+
+      0%,
+      93%,
+      100% {
+        transform: none;
+        opacity: 0
+      }
+
+      94% {
+        transform: translate(-3px, 1px);
+        opacity: .8
+      }
+
+      97% {
+        transform: translate(2px, -1px);
+        opacity: .5
+      }
+
+      99% {
+        opacity: 0
+      }
+    }
+
+    @keyframes gl2 {
+
+      0%,
+      93%,
+      100% {
+        transform: none;
+        opacity: 0
+      }
+
+      95% {
+        transform: translate(3px, 2px);
+        opacity: .8
+      }
+
+      98% {
+        transform: translate(-2px, 0);
+        opacity: .4
+      }
+    }
+
+    .h-type {
+      font-family: var(--mono);
+      font-size: .88rem;
+      color: var(--muted);
+      margin-bottom: 2.4rem;
+      min-height: 1.4rem;
+      opacity: 0;
+      animation: fadeUp .5s .9s forwards
+    }
+
+    .h-blink {
+      animation: blink .8s infinite;
+      display: inline-block
+    }
+
+    .h-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .5s 1.4s forwards
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: .72rem 1.6rem;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      background: transparent;
+      cursor: none;
+      transition: background .2s, color .2s, box-shadow .2s;
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+      display: inline-block
+    }
+
+    .btn:hover {
+      background: var(--cyan);
+      color: #000;
+      box-shadow: 0 0 24px rgba(0, 255, 229, .35)
+    }
+
+    .btn.fill {
+      background: var(--cyan);
+      color: #000
+    }
+
+    .btn.fill:hover {
+      background: transparent;
+      color: var(--cyan)
+    }
+
+    .hpanel {
+      background: var(--hud);
+      border: 1px solid var(--border);
+      overflow: hidden
+    }
+
+    .hpanel-title {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .18em;
+      color: #000;
+      background: var(--cyan);
+      padding: .28rem .8rem;
+      display: block
+    }
+
+    .hpanel-body {
+      padding: .65rem .8rem
+    }
+
+    .hrow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .22rem 0;
+      border-bottom: 1px solid rgba(0, 255, 229, .06);
+      font-family: var(--mono);
+      font-size: .65rem
+    }
+
+    .hrow:last-child {
+      border-bottom: none
+    }
+
+    .hrow-k {
+      color: var(--muted)
+    }
+
+    .hrow-v {
+      color: var(--cyan)
+    }
+
+    .ticker-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 255, 229, .025);
+      padding: .48rem 0;
+      position: relative;
+      z-index: 1
+    }
+
+    .ticker {
+      display: flex;
+      width: max-content;
+      animation: tickscroll 22s linear infinite
+    }
+
+    .ticker-half {
+      display: flex
+    }
+
+    .ti {
+      font-family: var(--mono);
+      font-size: .62rem;
+      color: var(--muted);
+      padding: 0 2rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      border-right: 1px solid var(--border)
+    }
+
+    .ti .hl {
+      color: var(--cyan)
+    }
+
+    @keyframes tickscroll {
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    section {
+      position: relative;
+      z-index: 1
+    }
+
+    .stag {
+      font-family: var(--mono);
+      font-size: .62rem;
+      color: var(--cyan);
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem
+    }
+
+    .stag::before {
+      content: '//';
+      opacity: .4
+    }
+
+    .shead {
+      font-family: var(--display);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      letter-spacing: .04em;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 2rem
+    }
+
+    .shead em {
+      color: var(--cyan);
+      font-style: normal
+    }
+
+    #about {
+      background: var(--hud);
+      padding: 6rem 6vw
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start
+    }
+
+    .about-bio p {
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 1rem
+    }
+
+    .about-bio p strong {
+      color: var(--cyan);
+      font-weight: 500
+    }
+
+    .stat-row {
+      display: flex;
+      margin-top: 2rem
+    }
+
+    .sblock {
+      flex: 1;
+      border: 1px solid var(--border);
+      padding: 1rem;
+      text-align: center;
+      transition: background .25s
+    }
+
+    .sblock+.sblock {
+      border-left: none
+    }
+
+    .sblock:hover {
+      background: var(--dimmer)
+    }
+
+    .snum {
+      font-family: var(--display);
+      font-size: 2.5rem;
+      color: var(--cyan);
+      display: block;
+      line-height: 1
+    }
+
+    .slbl {
+      font-family: var(--mono);
+      font-size: .57rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      margin-top: .25rem
+    }
+
+    .strengths-box {
+      margin-top: 1.6rem;
+      border: 1px solid var(--border);
+      padding: 1.1rem 1.2rem;
+      background: var(--bg)
+    }
+
+    .sg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .3rem;
+      margin-top: .8rem
+    }
+
+    .sg-item {
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--text);
+      line-height: 1.7
+    }
+
+    .sg-item::before {
+      content: '✓ ';
+      color: var(--cyan)
+    }
+
+    .sbars {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem
+    }
+
+    .sb-lbl {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: .67rem;
+      margin-bottom: .38rem
+    }
+
+    .sb-lbl span:last-child {
+      color: var(--cyan)
+    }
+
+    .sb-track {
+      height: 2px;
+      background: rgba(0, 255, 229, .1);
+      position: relative
+    }
+
+    .sb-fill {
+      height: 100%;
+      background: var(--cyan);
+      width: 0;
+      transition: width 1.4s cubic-bezier(.4, 0, .2, 1);
+      position: relative
+    }
+
+    .sb-fill::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -3px;
+      width: 8px;
+      height: 8px;
+      border: 1px solid var(--cyan);
+      background: var(--bg);
+      transform: rotate(45deg)
+    }
+
+    #experience {
+      background: var(--bg);
+      padding: 6rem 0;
+      overflow: hidden
+    }
+
+    .exp-header {
+      padding: 0 6vw;
+      margin-bottom: 3rem
+    }
+
+    .exp-scroll {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 0 6vw 2rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--cyan) transparent
+    }
+
+    .exp-scroll::-webkit-scrollbar {
+      height: 2px
+    }
+
+    .exp-scroll::-webkit-scrollbar-thumb {
+      background: var(--cyan)
+    }
+
+    .exp-card {
+      min-width: 400px;
+      background: var(--hud);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      flex-shrink: 0;
+      transition: border-color .3s;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))
+    }
+
+    .exp-card:hover {
+      border-color: var(--cyan)
+    }
+
+    .exp-num {
+      font-family: var(--display);
+      font-size: 4rem;
+      color: rgba(0, 255, 229, .05);
+      position: absolute;
+      top: .8rem;
+      right: 1.2rem;
+      line-height: 1
+    }
+
+    .exp-co {
+      font-family: var(--mono);
+      font-size: .62rem;
+      color: var(--cyan);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: .4rem
+    }
+
+    .exp-role {
+      font-family: var(--display);
+      font-size: 1.75rem;
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: .4rem
+    }
+
+    .exp-date {
+      font-family: var(--mono);
+      font-size: .61rem;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: .4rem
+    }
+
+    .exp-date::before {
+      content: '◆';
+      font-size: .44rem;
+      color: var(--cyan)
+    }
+
+    .exp-pts {
+      list-style: none
+    }
+
+    .exp-pts li {
+      font-size: .88rem;
+      color: var(--text);
+      line-height: 1.65;
+      padding-left: 1rem;
+      margin-bottom: .38rem;
+      position: relative
+    }
+
+    .exp-pts li::before {
+      content: '_';
+      position: absolute;
+      left: 0;
+      color: var(--cyan)
+    }
+
+    .ttags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      margin-top: 1.1rem
+    }
+
+    .ttag {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--cyan);
+      border: 1px solid rgba(0, 255, 229, .22);
+      padding: .12rem .45rem
+    }
+
+    #projects {
+      background: var(--hud);
+      padding: 6rem 6vw
+    }
+
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 6px;
+      margin-top: 3rem
+    }
+
+    .bc {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 1.4rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s;
+      cursor: none;
+      min-height: 148px
+    }
+
+    .bc::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--dim) 0%, transparent 65%);
+      opacity: 0;
+      transition: opacity .35s;
+      pointer-events: none
+    }
+
+    .bc:hover {
+      border-color: var(--cyan)
+    }
+
+    .bc:hover::after {
+      opacity: 1
+    }
+
+    .bc.s4 {
+      grid-column: span 4
+    }
+
+    .bc.s5 {
+      grid-column: span 5
+    }
+
+    .bc.s7 {
+      grid-column: span 7
+    }
+
+    .bc.r2 {
+      grid-row: span 2
+    }
+
+    .bc-aline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--cyan);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s
+    }
+
+    .bc:hover .bc-aline {
+      transform: scaleX(1)
+    }
+
+    .bc-badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: .54rem;
+      letter-spacing: .08em;
+      padding: .13rem .48rem;
+      background: var(--cyan);
+      color: #000;
+      margin-bottom: .55rem
+    }
+
+    .bc-badge.red {
+      background: var(--red);
+      color: #fff
+    }
+
+    .bc-type {
+      font-family: var(--mono);
+      font-size: .58rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: .38rem
+    }
+
+    .bc-title {
+      font-family: var(--display);
+      font-size: 1.45rem;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: .42rem;
+      letter-spacing: .02em
+    }
+
+    .bc-title.lg {
+      font-size: 2.2rem
+    }
+
+    .bc-desc {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.6
+    }
+
+    .bc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .28rem;
+      margin-top: .55rem
+    }
+
+    .bc-tag {
+      font-family: var(--mono);
+      font-size: .57rem;
+      color: var(--cyan);
+      border: 1px solid rgba(0, 255, 229, .18);
+      padding: .09rem .36rem
+    }
+
+    .bc-icon {
+      position: absolute;
+      bottom: .8rem;
+      right: 1rem;
+      font-size: 2.2rem;
+      opacity: .1;
+      transition: opacity .3s, transform .3s;
+      line-height: 1
+    }
+
+    .bc:hover .bc-icon {
+      opacity: .28;
+      transform: scale(1.15) rotate(-5deg)
+    }
+
+    #skills {
+      background: var(--bg);
+      padding: 6rem 6vw
+    }
+
+    .terminal {
+      background: var(--hud);
+      border: 1px solid var(--border);
+      margin-top: 3rem;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))
+    }
+
+    .t-bar {
+      background: rgba(0, 255, 229, .07);
+      border-bottom: 1px solid var(--border);
+      padding: .55rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      font-family: var(--mono);
+      font-size: .62rem;
+      color: var(--muted)
+    }
+
+    .tdot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%
+    }
+
+    .t-body {
+      padding: 1rem 1.4rem
+    }
+
+    .tl {
+      font-family: var(--mono);
+      font-size: .75rem;
+      line-height: 1.8
+    }
+
+    .tl .tp {
+      color: var(--cyan)
+    }
+
+    .tl .tc {
+      color: var(--yellow)
+    }
+
+    .tl .tm {
+      color: var(--muted)
+    }
+
+    .sm-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px
+    }
+
+    .sm-cell {
+      background: var(--bg);
+      border: 1px solid rgba(0, 255, 229, .07);
+      padding: .62rem .85rem;
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      cursor: none;
+      opacity: 0;
+      transform: scale(.88);
+      transition: opacity .35s, transform .35s, border-color .2s, color .2s, background .2s
+    }
+
+    .sm-cell.vis {
+      opacity: 1;
+      transform: scale(1)
+    }
+
+    .sm-cell:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: var(--dimmer)
+    }
+
+    #education {
+      background: var(--hud);
+      padding: 6rem 6vw
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem
+    }
+
+    .edu-tl {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-top: 2rem
+    }
+
+    .edu-tl::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--cyan), transparent)
+    }
+
+    .edu-item {
+      position: relative;
+      margin-bottom: 2.1rem
+    }
+
+    .edu-item::before {
+      content: '◆';
+      position: absolute;
+      left: -1.85rem;
+      top: .1rem;
+      color: var(--cyan);
+      font-size: .44rem
+    }
+
+    .edu-yr {
+      font-family: var(--mono);
+      font-size: .61rem;
+      color: var(--muted);
+      margin-bottom: .28rem
+    }
+
+    .edu-deg {
+      font-family: var(--display);
+      font-size: 1.45rem;
+      color: #fff;
+      margin-bottom: .18rem
+    }
+
+    .edu-sch {
+      font-size: .87rem;
+      color: var(--muted)
+    }
+
+    .edu-sc {
+      font-family: var(--mono);
+      font-size: .74rem;
+      color: var(--cyan);
+      margin-top: .4rem
+    }
+
+    .cert-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 2rem
+    }
+
+    .cert-row {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--cyan);
+      padding: .82rem 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity .5s, transform .5s, background .2s
+    }
+
+    .cert-row.vis {
+      opacity: 1;
+      transform: translateX(0)
+    }
+
+    .cert-row:hover {
+      background: var(--dimmer)
+    }
+
+    .cert-n {
+      font-size: .87rem;
+      color: var(--text)
+    }
+
+    .cert-o {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--cyan);
+      letter-spacing: .06em
+    }
+
+    #interests {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 6vw;
+      position: relative;
+      z-index: 1
+    }
+
+    .int-grid {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 1.5rem
+    }
+
+    .int-grid .hpanel {
+      flex: 1;
+      min-width: 220px
+    }
+
+    .hpanel-body p {
+      font-size: .88rem;
+      color: var(--text);
+      line-height: 1.75
+    }
+
+    #contact {
+      background: var(--bg);
+      padding: 7rem 6vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      position: relative;
+      z-index: 1
+    }
+
+    .c-big {
+      font-family: var(--display);
+      font-size: clamp(3.2rem, 7vw, 6rem);
+      line-height: .95;
+      letter-spacing: .03em;
+      color: #fff
+    }
+
+    .c-big em {
+      color: var(--cyan);
+      font-style: normal;
+      display: block
+    }
+
+    .c-sub {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.7;
+      margin: 1.4rem 0 2.2rem
+    }
+
+    .clinks {
+      display: flex;
+      flex-direction: column;
+      gap: 3px
+    }
+
+    .clink {
+      font-family: var(--mono);
+      font-size: .75rem;
+      color: var(--muted);
+      text-decoration: none;
+      padding: .88rem 1.1rem;
+      border: 1px solid rgba(0, 255, 229, .08);
+      background: var(--hud);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      letter-spacing: .07em;
+      transition: color .2s, border-color .2s, padding-left .2s
+    }
+
+    .clink:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      padding-left: 1.5rem
+    }
+
+    .clink-badge {
+      font-family: var(--mono);
+      font-size: .57rem;
+      background: var(--cyan);
+      color: #000;
+      padding: .1rem .38rem;
+      opacity: 0;
+      transition: opacity .2s
+    }
+
+    .clink:hover .clink-badge {
+      opacity: 1
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.2rem 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg);
+      position: relative;
+      z-index: 1
+    }
+
+    footer span {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--muted);
+      letter-spacing: .1em
+    }
+
+    .rev {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .65s, transform .65s
+    }
+
+    .rev.vis {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    @media(max-width:900px) {
+
+      .about-grid,
+      .edu-grid,
+      #contact {
+        grid-template-columns: 1fr;
+        gap: 3rem
+      }
+
+      .sm-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .bento {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .bc.s4,
+      .bc.s5,
+      .bc.s7 {
+        grid-column: span 2
+      }
+
+      .bc.r2 {
+        grid-row: span 1
+      }
+
+      .nav-links {
+        display: none
+      }
+
+      .hero-right {
+        display: none
+      }
+
+      .sg-grid {
+        grid-template-columns: 1fr
+      }
+
+      .int-grid {
+        flex-direction: column
+      }
+    }
+
+    @media(max-width:600px) {
+      #hero {
+        padding: 80px 4vw 2rem;
+        gap: 2rem;
+        flex-direction: column
+      }
+
+      .bento {
+        grid-template-columns: 1fr
+      }
+
+      .bc.s4,
+      .bc.s5,
+      .bc.s7 {
+        grid-column: span 1
+      }
+
+      .stat-row {
+        flex-wrap: wrap
+      }
+
+      .sblock {
+        min-width: 45%
+      }
+    }
+
+    /* ── VIDEO MODAL ─────────────────────────────────────── */
+    .bc[data-video] {
+      cursor: none
+    }
+
+    .bc-play-btn {
+      position: absolute;
+      bottom: .85rem;
+      left: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .12em;
+      color: var(--cyan);
+      border: 1px solid rgba(0, 255, 229, .3);
+      padding: .3rem .7rem .3rem .55rem;
+      background: rgba(0, 255, 229, .05);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .25s, transform .25s, background .2s, border-color .2s;
+      pointer-events: none;
+      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%)
+    }
+
+    .bc-play-btn svg {
+      width: 9px;
+      height: 9px;
+      fill: var(--cyan)
+    }
+
+    .bc[data-video]:hover .bc-play-btn {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .bc[data-video]:hover .bc-icon {
+      opacity: 0 !important
+    }
+
+    /* Scanline shimmer on hover for video cards */
+    .bc[data-video]::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg,
+          transparent,
+          transparent 3px,
+          rgba(0, 255, 229, .018) 3px,
+          rgba(0, 255, 229, .018) 4px);
+      opacity: 0;
+      transition: opacity .3s;
+      pointer-events: none;
+      z-index: 1
+    }
+
+    .bc[data-video]:hover::before {
+      opacity: 1
+    }
+
+    /* Modal overlay */
+    #vmodal {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s
+    }
+
+    #vmodal.open {
+      opacity: 1;
+      pointer-events: all
+    }
+
+    #vmodal-bg {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 5, 10, .92);
+      backdrop-filter: blur(18px)
+    }
+
+    #vmodal-box {
+      position: relative;
+      z-index: 1;
+      width: min(90vw, 1100px);
+      background: var(--hud);
+      border: 1px solid var(--cyan);
+      box-shadow: 0 0 80px rgba(0, 255, 229, .12), 0 0 200px rgba(0, 255, 229, .04);
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+      transform: scale(.94) translateY(12px);
+      transition: transform .3s
+    }
+
+    #vmodal.open #vmodal-box {
+      transform: scale(1) translateY(0)
+    }
+
+    #vmodal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .6rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 255, 229, .05)
+    }
+
+    #vmodal-title {
+      font-family: var(--mono);
+      font-size: .64rem;
+      letter-spacing: .16em;
+      color: var(--cyan);
+      text-transform: uppercase
+    }
+
+    #vmodal-meta {
+      font-family: var(--mono);
+      font-size: .58rem;
+      color: var(--muted);
+      letter-spacing: .1em
+    }
+
+    #vmodal-close {
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--border);
+      padding: .22rem .55rem;
+      cursor: none;
+      letter-spacing: .1em;
+      transition: color .2s, border-color .2s, background .2s
+    }
+
+    #vmodal-close:hover {
+      color: var(--red);
+      border-color: var(--red);
+      background: rgba(255, 45, 85, .08)
+    }
+
+    #vmodal-video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+      overflow: hidden
+    }
+
+    #vmodal-video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain
+    }
+
+    /* HUD corner accents on modal */
+    #vmodal-box .mc {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: var(--cyan);
+      border-style: solid;
+      opacity: .5;
+      pointer-events: none
+    }
+
+    #vmodal-box .mc-tl {
+      top: -1px;
+      left: -1px;
+      border-width: 2px 0 0 2px
+    }
+
+    #vmodal-box .mc-tr {
+      top: -1px;
+      right: -1px;
+      border-width: 2px 2px 0 0
+    }
+
+    #vmodal-box .mc-bl {
+      bottom: -1px;
+      left: -1px;
+      border-width: 0 0 2px 2px
+    }
+
+    #vmodal-box .mc-br {
+      bottom: -1px;
+      right: -1px;
+      border-width: 0 2px 2px 0
+    }
+
+    #vmodal-footer {
+      padding: .55rem 1.1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    #vmodal-desc {
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+      padding-right: 2rem
+    }
+
+    #vmodal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .28rem;
+      justify-content: flex-end
+    }
+
+    /* No-video placeholder message */
+    .no-video-msg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .7rem;
+      background: var(--bg)
+    }
+
+    .no-video-msg .nv-icon {
+      font-size: 2.8rem;
+      opacity: .18
+    }
+
+    .no-video-msg .nv-title {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--cyan);
+      letter-spacing: .2em;
+      text-transform: uppercase
+    }
+
+    .no-video-msg .nv-sub {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-align: center;
+      max-width: 320px;
+      line-height: 1.7
+    }
+
+    .no-video-msg .nv-path {
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--yellow);
+      background: rgba(255, 230, 0, .07);
+      border: 1px solid rgba(255, 230, 0, .2);
+      padding: .3rem .7rem;
+      letter-spacing: .08em
+    }
+
+    @media(max-width:600px) {
+      #vmodal-box {
+        width: 96vw;
+        clip-path: none
+      }
+
+      #vmodal-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .5rem
+      }
+
+      #vmodal-tags {
+        justify-content: flex-start
+      }
+
+      #vmodal-desc {
+        padding-right: 0
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="bg-canvas"></canvas>
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+  <div id="cur-v"></div>
+  <div id="cur-h"></div>
+  <div class="hc hc-tl"></div>
+  <div class="hc hc-tr"></div>
+  <div class="hc hc-bl"></div>
+  <div class="hc hc-br"></div>
+
+  <nav>
+    <a href="#hero" class="nav-logo">AL<span>://</span>PORTFOLIO</a>
+    <div class="nav-links">
+      <a href="#about">ABOUT</a><a href="#experience">EXP</a><a href="#projects">PROJECTS</a><a
+        href="#skills">SKILLS</a><a href="#education">EDU</a><a href="#contact">CONTACT</a>
+    </div>
+    <div class="nav-status">
+      <div class="sdot"></div>OPEN TO WORK
+    </div>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-left">
+      <div class="h-eyebrow">B.TECH CSE &middot; KOLKATA, INDIA &middot; 2026</div>
+      <h1 class="h-name">
+        <span class="l1 glitch" data-text="ANUBHAB">ANUBHAB</span>
+        <span class="l2">LAHIRI</span>
+      </h1>
+      <div class="h-type"><span id="tw"></span><span class="h-blink">█</span></div>
+      <div class="h-ctas">
+        <a href="#projects" class="btn fill">VIEW PROJECTS</a>
+        <a href="#contact" class="btn">GET IN TOUCH</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hpanel">
+        <span class="hpanel-title">// SYSTEM INFO</span>
+        <div class="hpanel-body">
+          <div class="hrow"><span class="hrow-k">STATUS</span><span class="hrow-v">ACTIVE</span></div>
+          <div class="hrow"><span class="hrow-k">LOCATION</span><span class="hrow-v">KOLKATA, WB</span></div>
+          <div class="hrow"><span class="hrow-k">CGPA</span><span class="hrow-v">8.21 / 10</span></div>
+          <div class="hrow"><span class="hrow-k">INTERNSHIPS</span><span class="hrow-v">02</span></div>
+          <div class="hrow"><span class="hrow-k">PROJECTS</span><span class="hrow-v">10+</span></div>
+          <div class="hrow"><span class="hrow-k">CERTS</span><span class="hrow-v">05</span></div>
+        </div>
+      </div>
+      <div class="hpanel">
+        <span class="hpanel-title">// LANGUAGES</span>
+        <div class="hpanel-body">
+          <div class="hrow"><span class="hrow-k">ENGLISH</span><span class="hrow-v">FLUENT</span></div>
+          <div class="hrow"><span class="hrow-k">BENGALI</span><span class="hrow-v">FLUENT</span></div>
+          <div class="hrow"><span class="hrow-k">HINDI</span><span class="hrow-v">FLUENT</span></div>
+          <div class="hrow"><span class="hrow-k">SPANISH</span><span class="hrow-v">BASICS</span></div>
+        </div>
+      </div>
+      <div class="hpanel">
+        <span class="hpanel-title">// SOCIALS</span>
+        <div class="hpanel-body">
+          <div class="hrow"><span class="hrow-k">GITHUB</span><span class="hrow-v">AnubhabL4002</span></div>
+          <div class="hrow"><span class="hrow-k">LINKEDIN</span><span class="hrow-v">Anubhab Lahiri</span></div>
+          <div class="hrow"><span class="hrow-k">PHONE</span><span class="hrow-v">+91 74397 16951</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <div class="ticker-half">
+        <div class="ti"><span class="hl">PYTHON</span></div>
+        <div class="ti">DJANGO</div>
+        <div class="ti"><span class="hl">REST APIs</span></div>
+        <div class="ti">C++</div>
+        <div class="ti"><span class="hl">UNREAL ENGINE</span></div>
+        <div class="ti">UNITY</div>
+        <div class="ti"><span class="hl">OPENCV</span></div>
+        <div class="ti">TENSORFLOW</div>
+        <div class="ti"><span class="hl">BURP SUITE</span></div>
+        <div class="ti">KALI LINUX</div>
+        <div class="ti"><span class="hl">YOLO</span></div>
+        <div class="ti">GIT</div>
+        <div class="ti"><span class="hl">SQL</span></div>
+        <div class="ti">POSTMAN</div>
+        <div class="ti"><span class="hl">SOUND DESIGN</span></div>
+        <div class="ti">GRAPHIC DESIGN</div>
+      </div>
+      <div class="ticker-half" aria-hidden="true">
+        <div class="ti"><span class="hl">PYTHON</span></div>
+        <div class="ti">DJANGO</div>
+        <div class="ti"><span class="hl">REST APIs</span></div>
+        <div class="ti">C++</div>
+        <div class="ti"><span class="hl">UNREAL ENGINE</span></div>
+        <div class="ti">UNITY</div>
+        <div class="ti"><span class="hl">OPENCV</span></div>
+        <div class="ti">TENSORFLOW</div>
+        <div class="ti"><span class="hl">BURP SUITE</span></div>
+        <div class="ti">KALI LINUX</div>
+        <div class="ti"><span class="hl">YOLO</span></div>
+        <div class="ti">GIT</div>
+        <div class="ti"><span class="hl">SQL</span></div>
+        <div class="ti">POSTMAN</div>
+        <div class="ti"><span class="hl">SOUND DESIGN</span></div>
+        <div class="ti">GRAPHIC DESIGN</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-bio rev">
+        <div class="stag">ABOUT</div>
+        <h2 class="shead">Code.<br>Build.<br><em>Ship.</em></h2>
+        <p>I'm a <strong>software engineer</strong> and B.Tech CSE student with expertise in <strong>Python, Django, and
+            REST APIs</strong>. I build scalable backends, train computer vision models, and ship games.</p>
+        <p>My strengths extend into <strong>OOP</strong> — applied daily in Unreal and Unity — and real-time problem
+          solving, from DSA challenges to live debugging sessions.</p>
+        <p>Beyond code, I'm a <strong>voice actor and sound designer</strong> for games, a graphic designer for tech
+          clubs, and a mentor who has taught <strong>90+ students</strong> game development as Vice President of
+          Ignatius SNU.</p>
+        <div class="stat-row">
+          <div class="sblock"><span class="snum">8.21</span>
+            <div class="slbl">CGPA</div>
+          </div>
+          <div class="sblock"><span class="snum">2</span>
+            <div class="slbl">INTERNSHIPS</div>
+          </div>
+          <div class="sblock"><span class="snum">10+</span>
+            <div class="slbl">PROJECTS</div>
+          </div>
+          <div class="sblock"><span class="snum">5</span>
+            <div class="slbl">CERTS</div>
+          </div>
+        </div>
+        <div class="strengths-box">
+          <div class="stag" style="margin-bottom:.7rem">KEY STRENGTHS</div>
+          <div class="sg-grid">
+            <div class="sg-item">Real-time problem solving &amp; DSA</div>
+            <div class="sg-item">Strong OOP fundamentals</div>
+            <div class="sg-item">Online &amp; offline team environments</div>
+            <div class="sg-item">Voice acting &amp; sound design</div>
+            <div class="sg-item">Graphic design (posters &amp; video)</div>
+            <div class="sg-item">Continuous learning mindset</div>
+          </div>
+        </div>
+      </div>
+      <div class="sbars rev" id="skillBars">
+        <div class="stag">PROFICIENCY</div>
+        <div style="height:.4rem"></div>
+        <div>
+          <div class="sb-lbl"><span>Python</span><span>90%</span></div>
+          <div class="sb-track">
+            <div class="sb-fill" data-w="90"></div>
+          </div>
+        </div>
+        <div>
+          <div class="sb-lbl"><span>Django / REST</span><span>85%</span></div>
+          <div class="sb-track">
+            <div class="sb-fill" data-w="85"></div>
+          </div>
+        </div>
+        <div>
+          <div class="sb-lbl"><span>OOP (C++ / C# / Python)</span><span>85%</span></div>
+          <div class="sb-track">
+            <div class="sb-fill" data-w="85"></div>
+          </div>
+        </div>
+        <div>
+          <div class="sb-lbl"><span>HTML / CSS</span><span>80%</span></div>
+          <div class="sb-track">
+            <div class="sb-fill" data-w="80"></div>
+          </div>
+        </div>
+        <div>
+          <div class="sb-lbl"><span>Unreal / Unity</span><span>75%</span></div>
+          <div class="sb-track">
+            <div class="sb-fill" data-w="75"></div>
+          </div>
+        </div>
+        <div>
+          <div class="sb-lbl"><span>C / C++</span><span>75%</span></div>
+          <div class="sb-track">
+            <div class="sb-fill" data-w="75"></div>
+          </div>
+        </div>
+        <div>
+          <div class="sb-lbl"><span>SQL</span><span>70%</span></div>
+          <div class="sb-track">
+            <div class="sb-fill" data-w="70"></div>
+          </div>
+        </div>
+        <div>
+          <div class="sb-lbl"><span>TensorFlow / OpenCV</span><span>65%</span></div>
+          <div class="sb-track">
+            <div class="sb-fill" data-w="65"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="exp-header rev">
+      <div class="stag">EXPERIENCE</div>
+      <h2 class="shead">Work <em>History</em></h2>
+    </div>
+    <div class="exp-scroll">
+      <div class="exp-card">
+        <div class="exp-num">01</div>
+        <div class="exp-co">RT Network Solutions Pvt. Ltd.</div>
+        <div class="exp-role">Data Annotator Intern</div>
+        <div class="exp-date">Jan 2026 — Present</div>
+        <ul class="exp-pts">
+          <li>Annotated images via Ango.ai — precise bounding boxes for object detection datasets.</li>
+          <li>Ensured high-quality labeled data for CV model training and validation.</li>
+        </ul>
+        <div class="ttags"><span class="ttag">Ango.ai</span><span class="ttag">Computer Vision</span><span
+            class="ttag">Data Annotation</span></div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">02</div>
+        <div class="exp-co">Employability.life – XPMC</div>
+        <div class="exp-role">API Vulnerability Testing Trainee</div>
+        <div class="exp-date">Nov 2024 — Jan 2025</div>
+        <ul class="exp-pts">
+          <li>Tested API endpoints for auth flaws, parameter manipulation &amp; data exposure via VAPI.</li>
+          <li>Used Kali Linux and FoxyProxy to intercept and analyze API traffic.</li>
+          <li>Documented findings from Burp Suite testing sessions.</li>
+        </ul>
+        <div class="ttags"><span class="ttag">Postman</span><span class="ttag">Burp Suite</span><span
+            class="ttag">VAPI</span><span class="ttag">Kali Linux</span></div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">03</div>
+        <div class="exp-co">Ignatius SNU Club</div>
+        <div class="exp-role">Game Dev Mentor &amp; Vice President</div>
+        <div class="exp-date">Jan 2025 — Dec 2025</div>
+        <ul class="exp-pts">
+          <li>Taught 90+ university students about Game Development, physics systems, and the Game Industry.</li>
+          <li>Led club activities and coordinated events as Vice President of Ignatius SNU.</li>
+        </ul>
+        <div class="ttags"><span class="ttag">Unity</span><span class="ttag">Unreal Engine</span><span
+            class="ttag">Mentoring</span><span class="ttag">Leadership</span></div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">04</div>
+        <div class="exp-co">Coding Ninjas SNU &amp; Aperture Alchemist</div>
+        <div class="exp-role">Graphic Designer</div>
+        <div class="exp-date">Mar 2024 — Dec 2025</div>
+        <ul class="exp-pts">
+          <li>Designed posters and video content for daily club requirements at Coding Ninjas SNU.</li>
+          <li>Collaborated with creative teams for Udyog community's Aperture Alchemist group outputs.</li>
+        </ul>
+        <div class="ttags"><span class="ttag">Graphic Design</span><span class="ttag">Canva</span><span
+            class="ttag">Video Editing</span><span class="ttag">Collaboration</span></div>
+      </div>
+      <div class="exp-card"
+        style="border-style:dashed;opacity:.35;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.6rem;min-height:260px">
+        <div style="font-family:var(--mono);font-size:.62rem;color:var(--muted)">NEXT CHAPTER</div>
+        <div style="font-family:var(--display);font-size:3rem;color:rgba(0,255,229,.18)">???</div>
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">YOUR COMPANY HERE</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="rev">
+      <div class="stag">PROJECTS</div>
+      <h2 class="shead">Things I've <em>Built</em></h2>
+    </div>
+    <div class="bento">
+      <div class="bc s7 r2" data-video="videos/sweettweet-demo.mp4" data-title="SweetTweet"
+        data-meta="Web Application · Django"
+        data-desc="A full microblogging platform — user auth, text/image posting, granular edit/delete permissions, and a public feed. Built end-to-end with Django."
+        data-tags="Python,Django,HTML,CSS">
+        <div class="bc-aline"></div>
+        <div class="bc-badge">FEATURED · LIVE</div>
+        <div class="bc-type">Web Application · Django</div>
+        <div class="bc-title lg">SweetTweet</div>
+        <div class="bc-desc">A full microblogging platform — user auth, text/image posting, granular edit/delete
+          permissions, and a public feed. Built end-to-end with Django.</div>
+        <div class="bc-tags"><span class="bc-tag">Python</span><span class="bc-tag">Django</span><span
+            class="bc-tag">HTML</span><span class="bc-tag">CSS</span></div>
+        <div class="bc-play-btn"><svg viewBox="0 0 10 10">
+            <polygon points="2,1 9,5 2,9" />
+          </svg>PLAY DEMO</div>
+        <div class="bc-icon">🐦</div>
+      </div>
+      <div class="bc s5" data-video="videos/traffic-demo.mp4" data-title="Automated Traffic System"
+        data-meta="Computer Vision · SIH 2024"
+        data-desc="University-selected SIH project. YOLOv5x + OpenCV for real-time object detection and traffic management."
+        data-tags="Python,YOLOv5x,OpenCV,Computer Vision">
+        <div class="bc-aline"></div>
+        <div class="bc-badge red">HACKATHON · SIH 2024</div>
+        <div class="bc-type">Computer Vision</div>
+        <div class="bc-title">Automated Traffic System</div>
+        <div class="bc-desc">University-selected SIH project. YOLOv5x + OpenCV for real-time object detection and
+          traffic management.</div>
+        <div class="bc-play-btn"><svg viewBox="0 0 10 10">
+            <polygon points="2,1 9,5 2,9" />
+          </svg>PLAY DEMO</div>
+        <div class="bc-icon">🚗</div>
+      </div>
+      <div class="bc s5" data-video="videos/cryptraider-demo.mp4" data-title="Crypt Raider"
+        data-meta="Unreal Engine 5 · C++ &amp; Blueprints"
+        data-desc="3D action-adventure. Ragdoll physics, inverse kinematics, spring-damping &amp; custom grip detection. Built in C++ and Blueprints."
+        data-tags="Unreal Engine,C++,Blueprints,Physics">
+        <div class="bc-aline"></div>
+        <div class="bc-type">Unreal Engine · PC</div>
+        <div class="bc-title">Crypt Raider</div>
+        <div class="bc-desc">3D action-adventure. Ragdoll physics, inverse kinematics, spring-damping &amp; custom grip
+          detection. C++ &amp; Blueprints.</div>
+        <div class="bc-play-btn"><svg viewBox="0 0 10 10">
+            <polygon points="2,1 9,5 2,9" />
+          </svg>PLAY DEMO</div>
+        <div class="bc-icon">💎</div>
+      </div>
+      <div class="bc s4" data-video="videos/aimlock-demo.mp4" data-title="Aim Lock" data-meta="Unreal Engine 5 · PC"
+        data-desc="Third-person shooter with tight gunplay mechanics, aiming systems and responsive controls."
+        data-tags="Unreal Engine,C++,Shooter">
+        <div class="bc-aline"></div>
+        <div class="bc-type">Unreal Engine · PC</div>
+        <div class="bc-title">Aim Lock</div>
+        <div class="bc-desc">Third-person shooter with tight gunplay mechanics.</div>
+        <div class="bc-play-btn"><svg viewBox="0 0 10 10">
+            <polygon points="2,1 9,5 2,9" />
+          </svg>PLAY DEMO</div>
+        <div class="bc-icon">🎯</div>
+      </div>
+      <div class="bc s4" data-video="videos/toontanks-demo.mp4" data-title="Toon Tanks" data-meta="Unreal Engine 5 · PC"
+        data-desc="Enemy turrets that track and hunt the player. Features custom AI tracking logic and projectile systems."
+        data-tags="Unreal Engine,C++,AI,Blueprints">
+        <div class="bc-aline"></div>
+        <div class="bc-type">Unreal Engine · PC</div>
+        <div class="bc-title">Toon Tanks</div>
+        <div class="bc-desc">Enemy turrets that track and hunt the player.</div>
+        <div class="bc-play-btn"><svg viewBox="0 0 10 10">
+            <polygon points="2,1 9,5 2,9" />
+          </svg>PLAY DEMO</div>
+        <div class="bc-icon">🪖</div>
+      </div>
+      <div class="bc s4" data-video="videos/obstacle-demo.mp4" data-title="Obstacle Assault"
+        data-meta="Unreal Engine 5 · PC"
+        data-desc="Platform game — dodge moving obstacles and reach the goal. Showcases physics-based level design."
+        data-tags="Unreal Engine,Blueprints,Platformer">
+        <div class="bc-aline"></div>
+        <div class="bc-type">Unreal Engine · PC</div>
+        <div class="bc-title">Obstacle Assault</div>
+        <div class="bc-desc">Platform game — dodge obstacles, reach the goal.</div>
+        <div class="bc-play-btn"><svg viewBox="0 0 10 10">
+            <polygon points="2,1 9,5 2,9" />
+          </svg>PLAY DEMO</div>
+        <div class="bc-icon">🏔️</div>
+      </div>
+      <div class="bc s4" data-video="videos/dodger-demo.mp4" data-title="Dodger" data-meta="Unity · Android"
+        data-desc="Fast-paced 2D mobile dodge game. Tap-to-move controls with escalating difficulty and score tracking."
+        data-tags="Unity,C#,Android,2D">
+        <div class="bc-aline"></div>
+        <div class="bc-type">Unity · Android</div>
+        <div class="bc-title">Dodger</div>
+        <div class="bc-desc">Fast-paced 2D mobile dodge game.</div>
+        <div class="bc-play-btn"><svg viewBox="0 0 10 10">
+            <polygon points="2,1 9,5 2,9" />
+          </svg>PLAY DEMO</div>
+        <div class="bc-icon">📱</div>
+      </div>
+      <div class="bc s4" data-video="videos/survival-demo.mp4" data-title="3D Survival" data-meta="Unity · PC (WIP)"
+        data-desc="Stylized survival — playable demo available. Features crafting, exploration and environmental hazards."
+        data-tags="Unity,C#,3D,Survival">
+        <div class="bc-aline"></div>
+        <div class="bc-type">Unity · PC (WIP)</div>
+        <div class="bc-title">3D Survival</div>
+        <div class="bc-desc">Stylized survival — playable demo available.</div>
+        <div class="bc-play-btn"><svg viewBox="0 0 10 10">
+            <polygon points="2,1 9,5 2,9" />
+          </svg>PLAY DEMO</div>
+        <div class="bc-icon">🌲</div>
+      </div>
+      <div class="bc s4">
+        <div class="bc-aline"></div>
+        <div class="bc-type">Python Collection</div>
+        <div class="bc-title">Mini Projects</div>
+        <div class="bc-desc">File Organizer · Discord Bot · Snake · Pong · Pomodoro · Caesar Cipher</div>
+        <div class="bc-icon">🐍</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="rev">
+      <div class="stag">SKILLS</div>
+      <h2 class="shead">The <em>Toolkit</em></h2>
+    </div>
+    <div class="terminal rev">
+      <div class="t-bar">
+        <div class="tdot" style="background:var(--red)"></div>
+        <div class="tdot" style="background:var(--yellow)"></div>
+        <div class="tdot" style="background:var(--cyan)"></div>
+        <span style="margin-left:.5rem">anubhab@portfolio ~ $</span>
+      </div>
+      <div class="t-body">
+        <div class="tl"><span class="tp">❯ </span><span class="tc">skills --list --all</span></div>
+        <div class="tl"><span class="tm">// Scanning installed modules...</span></div>
+      </div>
+      <div class="sm-grid" id="skillMatrix">
+        <div class="sm-cell">🐍 Python</div>
+        <div class="sm-cell">⚙️ C</div>
+        <div class="sm-cell">⚙️ C++</div>
+        <div class="sm-cell">🗄️ SQL</div>
+        <div class="sm-cell">🌐 HTML</div>
+        <div class="sm-cell">🎨 CSS</div>
+        <div class="sm-cell">🔷 Bootstrap</div>
+        <div class="sm-cell">🦄 Django</div>
+        <div class="sm-cell">🔌 DRF</div>
+        <div class="sm-cell">🔢 NumPy</div>
+        <div class="sm-cell">🐼 Pandas</div>
+        <div class="sm-cell">🤖 scikit-learn</div>
+        <div class="sm-cell">🧠 TensorFlow</div>
+        <div class="sm-cell">👁️ OpenCV</div>
+        <div class="sm-cell">🎮 Unity</div>
+        <div class="sm-cell">🎮 Unreal Engine</div>
+        <div class="sm-cell">🔀 Git</div>
+        <div class="sm-cell">📮 Postman</div>
+        <div class="sm-cell">🔓 Burp Suite</div>
+        <div class="sm-cell">🐉 Kali Linux</div>
+        <div class="sm-cell">🎙️ Voice Acting</div>
+        <div class="sm-cell">🖼️ Graphic Design</div>
+        <div class="sm-cell">🔊 Sound Design</div>
+        <div class="sm-cell">🎯 DSA</div>
+      </div>
+      <div class="t-body" style="padding-top:.6rem">
+        <div class="tl"><span class="tp">❯ </span><span class="tm">24 modules loaded. All systems operational.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="edu-grid">
+      <div class="rev">
+        <div class="stag">EDUCATION</div>
+        <h2 class="shead">Academic <em>Record</em></h2>
+        <div class="edu-tl">
+          <div class="edu-item">
+            <div class="edu-yr">2022 — 2026</div>
+            <div class="edu-deg">B.Tech in CSE</div>
+            <div class="edu-sch">Sister Nivedita University</div>
+            <div class="edu-sc">CGPA: 8.21 / 10</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-yr">2022</div>
+            <div class="edu-deg">Higher Secondary</div>
+            <div class="edu-sch">Sheoraphuli Surendranath Vidyaniketan · WBCHSE</div>
+            <div class="edu-sc">80.90 / 100</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-yr">2020</div>
+            <div class="edu-deg">Secondary</div>
+            <div class="edu-sch">Sheoraphuli Surendranath Vidyaniketan · WBBSE</div>
+            <div class="edu-sc">82 / 100</div>
+          </div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="stag">CERTIFICATIONS</div>
+        <h2 class="shead">Verified <em>Certs</em></h2>
+        <div class="cert-stack">
+          <div class="cert-row"><span class="cert-n">Applied Machine Learning in Python</span><span class="cert-o">U. of
+              Michigan</span></div>
+          <div class="cert-row"><span class="cert-n">Unreal Engine 5 C++ Developer</span><span
+              class="cert-o">GameDev.tv</span></div>
+          <div class="cert-row"><span class="cert-n">People &amp; Soft Skills: Professional Success</span><span
+              class="cert-o">IBM</span></div>
+          <div class="cert-row"><span class="cert-n">Structured Query Language (SQL)</span><span class="cert-o">U. of
+              Colorado</span></div>
+          <div class="cert-row"><span class="cert-n">Introduction to Networking</span><span class="cert-o">NVIDIA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="interests">
+    <div class="rev">
+      <div class="stag">INTERESTS</div>
+    </div>
+    <div class="int-grid rev">
+      <div class="hpanel">
+        <span class="hpanel-title">// GAME DEVELOPMENT</span>
+        <div class="hpanel-body">
+          <p>Passionate about game creation in Unity and Unreal Engine — from physics systems and ragdoll mechanics to
+            full game worlds and immersive sound design.</p>
+        </div>
+      </div>
+      <div class="hpanel">
+        <span class="hpanel-title">// COMPUTERS &amp; TECH</span>
+        <div class="hpanel-body">
+          <p>Fascinated by how computers work at every layer. Enjoy solving real-time technical problems, optimizing
+            systems, and diving into low-level concepts.</p>
+        </div>
+      </div>
+      <div class="hpanel">
+        <span class="hpanel-title">// CONTINUOUS LEARNING</span>
+        <div class="hpanel-body">
+          <p>Always exploring new tech — from new frameworks to physics engines, security tools, and sound design
+            software. Learning never stops.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="rev">
+      <div class="stag">CONTACT</div>
+      <div class="c-big">Let's<br>Build<br><em>Together.</em></div>
+      <p class="c-sub">Open to internships, collaborations, and interesting projects.<br>Drop a message — I read
+        everything.</p>
+      <a href="#projects" class="btn fill">BROWSE MY WORK ↗</a>
+    </div>
+    <div class="clinks rev">
+      <a href="mailto:lanubhab1245@gmail.com" class="clink">lanubhab1245@gmail.com<span
+          class="clink-badge">EMAIL</span></a>
+      <a href="tel:+917439716951" class="clink">+91 74397 16951<span class="clink-badge">PHONE</span></a>
+      <a href="https://www.linkedin.com/in/anubhab-lahiri-jakew" target="_blank"
+        class="clink">linkedin.com/in/anubhab-lahiri-jakew<span class="clink-badge">LINKEDIN</span></a>
+      <a href="https://github.com/AnubhabL4002" target="_blank" class="clink">github.com/AnubhabL4002<span
+          class="clink-badge">GITHUB</span></a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 ANUBHAB LAHIRI</span>
+    <span>ENGLISH · BENGALI · HINDI · SPANISH</span>
+    <span>KOLKATA, INDIA</span>
+  </footer>
+
+  <!-- VIDEO MODAL -->
+  <div id="vmodal">
+    <div id="vmodal-bg"></div>
+    <div id="vmodal-box">
+      <div class="mc mc-tl"></div>
+      <div class="mc mc-tr"></div>
+      <div class="mc mc-bl"></div>
+      <div class="mc mc-br"></div>
+      <div id="vmodal-bar">
+        <div>
+          <div id="vmodal-title">PROJECT_DEMO.MP4</div>
+          <div id="vmodal-meta">// LOADING</div>
+        </div>
+        <button id="vmodal-close">[ ESC ] CLOSE ✕</button>
+      </div>
+      <div id="vmodal-video-wrap">
+        <video id="vmodal-video" controls playsinline></video>
+        <div class="no-video-msg" id="vmodal-placeholder">
+          <div class="nv-icon">🎬</div>
+          <div class="nv-title">Video Not Linked Yet</div>
+          <div class="nv-sub">Drop your .mp4 file into the <span style="color:var(--yellow)">videos/</span> folder next
+            to your index.html, then update the filename in the card's <span style="color:var(--cyan)">data-video</span>
+            attribute.</div>
+          <div class="nv-path" id="vmodal-path-hint"></div>
+        </div>
+      </div>
+      <div id="vmodal-footer">
+        <div id="vmodal-desc"></div>
+        <div id="vmodal-tags"></div>
+      </div>
+    </div>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
+    // CANVAS
+    const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
+    let W, H, ptcls = [];
+    const mouse = { x: -9999, y: -9999 };
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    class Dot {
+      constructor() { this.reset(); }
+      reset() { this.x = Math.random() * W; this.y = Math.random() * H; this.vx = (Math.random() - .5) * .28; this.vy = (Math.random() - .5) * .28; this.r = Math.random() * 1.1 + .3; this.a = Math.random() * .28 + .05; }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        const dx = this.x - mouse.x, dy = this.y - mouse.y, d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 110) { this.x += dx / d * 1.6; this.y += dy / d * 1.6; }
+        if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+      }
+      draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(0,255,229,${this.a})`; ctx.fill(); }
+    }
+    for (let i = 0; i < 90; i++)ptcls.push(new Dot());
+    function drawLines() {
+      for (let i = 0; i < ptcls.length; i++)for (let j = i + 1; j < ptcls.length; j++) {
+        const dx = ptcls[i].x - ptcls[j].x, dy = ptcls[i].y - ptcls[j].y, d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 72) { ctx.beginPath(); ctx.moveTo(ptcls[i].x, ptcls[i].y); ctx.lineTo(ptcls[j].x, ptcls[j].y); ctx.strokeStyle = `rgba(0,255,229,${(1 - d / 72) * .05})`; ctx.lineWidth = .5; ctx.stroke(); }
+      }
+    }
+    (function loop() { ctx.clearRect(0, 0, W, H); ptcls.forEach(p => { p.update(); p.draw(); }); drawLines(); requestAnimationFrame(loop); })();
+
+    // CURSOR
+    const cur = document.getElementById('cur'), ring = document.getElementById('cur-ring'), curV = document.getElementById('cur-v'), curH = document.getElementById('cur-h');
+    let cx = -200, cy = -200, rx = -200, ry = -200;
+    document.addEventListener('mousemove', e => {
+      cx = e.clientX; cy = e.clientY;
+      mouse.x = cx; mouse.y = cy;
+      cur.style.left = cx + 'px'; cur.style.top = cy + 'px';
+      curV.style.left = cx + 'px'; curV.style.top = cy + 'px';
+      curH.style.left = cx + 'px'; curH.style.top = cy + 'px';
+    });
+    (function animRing() {
+      rx += (cx - rx) * .12; ry += (cy - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => { cur.style.width = '16px'; cur.style.height = '16px'; ring.style.width = '50px'; ring.style.height = '50px'; ring.style.borderColor = 'rgba(0,255,229,.9)'; });
+      el.addEventListener('mouseleave', () => { cur.style.width = '8px'; cur.style.height = '8px'; ring.style.width = '32px'; ring.style.height = '32px'; ring.style.borderColor = 'rgba(0,255,229,.5)'; });
+    });
+
+    // TYPEWRITER
+    const phrases = ['Backend Engineer.', 'Game Developer.', 'Security Researcher.', 'Computer Vision Enthusiast.', 'Voice Actor & Sound Designer.', 'Graphic Designer.', 'Mentor to 90+ Students.', 'Building things that matter.'];
+    let pi = 0, ci = 0, del = false;
+    const twEl = document.getElementById('tw');
+    function type() {
+      const p = phrases[pi];
+      if (!del) { twEl.textContent = p.slice(0, ci + 1); ci++; if (ci === p.length) { del = true; setTimeout(type, 1800); return; } setTimeout(type, 62); }
+      else { twEl.textContent = p.slice(0, ci - 1); ci--; if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; setTimeout(type, 320); return; } setTimeout(type, 34); }
+    }
+    setTimeout(type, 1400);
+
+    // INTERSECTION OBSERVER
+    const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.rev,.cert-row,.sm-cell').forEach(el => io.observe(el));
+    document.querySelectorAll('.sm-cell').forEach((c, i) => c.style.transitionDelay = (i * .038) + 's');
+    document.querySelectorAll('.cert-row').forEach((c, i) => c.style.transitionDelay = (i * .09) + 's');
+
+    // SKILL BARS
+    const sbEl = document.getElementById('skillBars');
+    const sbIo = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.sb-fill').forEach(f => { const w = f.dataset.w; f.style.width = w + '%'; });
+        }
+      });
+    }, { threshold: 0.2 });
+    if (sbEl) sbIo.observe(sbEl);
+
+    // ── VIDEO MODAL ──────────────────────────────────────────────
+    const vmodal = document.getElementById('vmodal');
+    const vbg = document.getElementById('vmodal-bg');
+    const vvideo = document.getElementById('vmodal-video');
+    const vclose = document.getElementById('vmodal-close');
+    const vtitle = document.getElementById('vmodal-title');
+    const vmeta = document.getElementById('vmodal-meta');
+    const vdesc = document.getElementById('vmodal-desc');
+    const vtags = document.getElementById('vmodal-tags');
+    const vph = document.getElementById('vmodal-placeholder');
+    const vphint = document.getElementById('vmodal-path-hint');
+
+    function openModal(card) {
+      const src = card.dataset.video || '';
+      const title = card.dataset.title || 'PROJECT DEMO';
+      const meta = card.dataset.meta || '';
+      const desc = card.dataset.desc || '';
+      const tags = (card.dataset.tags || '').split(',').filter(Boolean);
+
+      vtitle.textContent = title.toUpperCase() + ' — DEMO';
+      vmeta.textContent = '// ' + meta;
+      vdesc.textContent = desc;
+      vtags.innerHTML = tags.map(t => `<span class="bc-tag">${t.trim()}</span>`).join('');
+
+      if (src) {
+        vvideo.src = src;
+        vvideo.style.display = 'block';
+        vph.style.display = 'none';
+        vvideo.play().catch(() => { });
+      } else {
+        vvideo.src = '';
+        vvideo.style.display = 'none';
+        vph.style.display = 'flex';
+        vphint.textContent = 'Expected: videos/' + title.toLowerCase().replace(/\s+/g, '-') + '-demo.mp4';
+      }
+
+      vmodal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      vmodal.classList.remove('open');
+      vvideo.pause();
+      vvideo.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.bc[data-video]').forEach(card => {
+      card.addEventListener('click', () => openModal(card));
+      // Cursor grow on video cards
+      card.addEventListener('mouseenter', () => {
+        cur.style.width = '20px'; cur.style.height = '20px';
+        ring.style.width = '60px'; ring.style.height = '60px';
+        ring.style.borderColor = 'rgba(0,255,229,.9)';
+      });
+      card.addEventListener('mouseleave', () => {
+        cur.style.width = '8px'; cur.style.height = '8px';
+        ring.style.width = '32px'; ring.style.height = '32px';
+        ring.style.borderColor = 'rgba(0,255,229,.5)';
+      });
+    });
+
+    vclose.addEventListener('click', closeModal);
+    vbg.addEventListener('click', closeModal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+
+</html>
